@@ -1,7 +1,59 @@
+$app-width: clamp(300px, 90dvw, 640px);
+$app-padding: clamp(0.25rem, 5dvw, 1.25rem);
+$app-border-radius: 1rem;
+$app-shadow: 0 0 20px 5px rgb(230, 230, 230);
+$primary-color: white;
+$background-color: whitesmoke;
+$font-stack: 'Trebuchet MS', sans-serif;
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root,
+body {
+  height: 100%;
+  display: grid;
+  font: 100% $font-stack;
+  background: $background-color;
+}
+
+#app {
+  margin: auto;
+  padding: $app-padding;
+  width: $app-width;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: $primary-color;
+  border-radius: $app-border-radius;
+  box-shadow: $app-shadow;
+}
+
+.title {
+  font-weight: normal;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  max-width: 300px;
+  border-radius: 0.25rem;
+  border: 1px solid;
+}
+
+button {
+  padding: 1rem;
+  width: max-content;
+  font: inherit;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
