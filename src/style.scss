@@ -26,28 +26,26 @@ body {
   margin: auto;
   padding: $app-padding;
   width: $app-width;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
   background: $primary-color;
   border-radius: $app-border-radius;
   box-shadow: $app-shadow;
 }
 
 .title {
+  margin-bottom: 1.5rem;
   font-weight: normal;
 }
 
 input[type="text"] {
   padding: 0.5rem;
   max-width: 300px;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   border: 1px solid;
 }
 
 button {
   padding: 1rem;
-  width: max-content;
+  width: fit-content;
   font: inherit;
   border-radius: 0.5rem;
   border: none;

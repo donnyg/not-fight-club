@@ -1,0 +1,14 @@
+import styles from './SelectCharacter.module.scss';
+import { battle } from '../../battle';
+
+export default () => `
+  <fieldset class="${styles.list}">
+    ${battle.characters.map((character, index) => `
+      <label class="${styles.item}">
+        <input class="${styles.input}" type="radio" name="character" value="${index}" ${index === 0 ? 'checked' : ''}>
+        <img class="${styles.img}" src="./assets/skins/${character.skinId}.webp" alt="${character.name}">
+        <span class="${styles.name}">${character.name}</span>
+      </label>
+    `).join('')}
+  </fieldset>
+`;

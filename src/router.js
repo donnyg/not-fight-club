@@ -1,39 +1,29 @@
+import { storage } from "./storage";
+import { player } from "./player";
 import { battle } from "./battle";
-import { getPlayerName, savePlayerName } from "./storage";
+import LoginView from "./views/LoginView";
+import HomeView from "./views/HomeView";
+import BattleView from "./views/BattleView";
+import SettingsView from './views/SettingsView';
 
 class Router {
   #currentView;
   #views = {
-    login: {
-      title: 'Создание персонажа',
-      content: () => `
-        <input type="text" name="name" id="name" minlength="1" maxlength="64" placeholder="Введите имя" autofocus required>
-        <button type="submit" id="submit" disabled>Создать</button>`
-    },
-    home: {
-      title: 'Home',
-      content: () => '<button type="button" id="play">Начать бой</button>'
-    },
-    battle: {
-      title: 'Бой',
-      content: () => `
-        <p>${getPlayerName()} vs. ${battle.enemy.name} (HP: ${battle.enemy.hp})</p>
-        <button type="button" id="fight">УДАР!</button>`
-    },
-    settings: {
-      title: 'Настройки',
-      content: () => 'settings view'
-    },
+    login: { title: 'Создание персонажа', render: LoginView },
+    home: { title: 'Home', render: HomeView },
+    battle: { title: 'Бой', render: BattleView },
+    settings: { title: 'Настройки', render: SettingsView },
   };
 
   setView(name) {
     this.#currentView = name;
     document.getElementById('app').innerHTML = `
       <h2 class="title">${this.#views[name].title}</h2>
-      ${this.#views[name].content()}`;
+      ${this.#views[name].render()}`;
 
     switch (this.#currentView) {
       case 'login': {
+        const form = document.getElementById('form');
         const name = document.getElementById('name');
         const submit = document.getElementById('submit');
 
@@ -41,8 +31,11 @@ class Router {
           submit.toggleAttribute('disabled', !name.value || name.validity.tooShort || name.validity.tooLong);
         }
 
-        submit.onclick = () => {
-          savePlayerName(name.value);
+        form.onsubmit = (event) => {
+          event.preventDefault();
+          player.name = form.elements.name.value;
+          player.characterId = form.elements.character.value;
+          storage.save(player);
           this.setView('home');
         }
         break;
@@ -55,7 +48,6 @@ class Router {
         break;
       }
       case 'battle': {
-        // document.getElementById('shoot').onclick = shoot;
         break;
       }
     }

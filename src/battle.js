@@ -1,10 +1,10 @@
 class Battle {
-  #currentEnemy;
+  #currentEnemy = 0;
   #characters = [
     { name: 'CJ', hp: 100, skinId: 0 },
-    { name: 'Cesar Vialpando', hp: 150, skinId: 292 },
     { name: 'Sweet', hp: 200, skinId: 270 },
-  ]
+    { name: 'Cesar Vialpando', hp: 150, skinId: 292 },
+  ];
   #enemies = [
     { name: 'Ballas Gang Member', hp: 100, skinId: 103 },
     { name: 'Ryder', hp: 150, skinId: 271 },
@@ -14,14 +14,16 @@ class Battle {
   ];
 
   start() {
-    this.#setRandomEnemy();
-
-    console.debug('Start battle. Your enemy is', this.enemy)
+    return this.#setRandomEnemy();
   }
 
   #setRandomEnemy() {
     const index = Math.floor(Math.random() * this.#enemies.length);
     this.#currentEnemy = this.#enemies[index];
+  }
+
+  get characters() {
+    return this.#characters;
   }
 
   get enemy() {

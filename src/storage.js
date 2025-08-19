@@ -1,7 +1,11 @@
-export function getPlayerName() {
-  return window.localStorage.getItem('name');
+class Storage {
+  getPlayer() {
+    return JSON.parse(window.localStorage.getItem('player'));
+  }
+
+  save(value) {
+    return window.localStorage.setItem(value.constructor.name.toLowerCase(), JSON.stringify(value));
+  }
 }
 
-export function savePlayerName(value) {
-  return window.localStorage.setItem('name', value);
-}
+export const storage = new Storage();
