@@ -1,33 +1,120 @@
-class Battle {
-  #currentEnemy = 0;
-  #characters = [
+import { player } from "./player";
+import { router } from "./router";
+import { storage } from "./storage";
+
+export class Battle {
+  static characters = [
     { name: 'CJ', hp: 100, skinId: 0 },
     { name: 'Sweet', hp: 200, skinId: 270 },
     { name: 'Cesar Vialpando', hp: 150, skinId: 292 },
   ];
-  #enemies = [
+
+  static enemies = [
     { name: 'Ballas Gang Member', hp: 100, skinId: 103 },
     { name: 'Ryder', hp: 150, skinId: 271 },
     { name: 'Officer Tenpenny', hp: 150, skinId: 265 },
     { name: 'Big Smoke', hp: 100, skinId: 269 },
-    { name: 'Big Smoke Armored', hp: 300, skinId: 149 },
+    { name: 'Big Smoke Armored', hp: 200, skinId: 149 },
   ];
 
+  static hitZones = ['Голова', 'Шея', 'Грудь', 'Живот', 'Ноги'];
+
+  constructor() {
+    this.log = [];
+  }
+
+  setRandomEnemy() {
+    const index = Math.floor(Math.random() * Battle.enemies.length);
+    this.enemy = {
+      id: index,
+      hp: Battle.enemies[index].hp,
+    };
+  }
+
   start() {
-    return this.#setRandomEnemy();
+    this.log = [];
+    delete this.winner;
+    this.player = {
+      hp: Battle.characters[player.characterId].hp
+    };
+    this.setRandomEnemy();
   }
 
-  #setRandomEnemy() {
-    const index = Math.floor(Math.random() * this.#enemies.length);
-    this.#currentEnemy = this.#enemies[index];
-  }
+  handleTurn() {
+    // TODO: throw error if zones not selected
 
-  get characters() {
-    return this.#characters;
-  }
+    for (let i = 0; i < 2; i++) {
+      let attacker, isSuccessful = true;
+      let damage = 30;
+      let hitZoneId;
+      let isCrit = false;
 
-  get enemy() {
-    return this.#currentEnemy;
+      const critChance = Math.random();
+      if (critChance < 0.2) {
+        isCrit = true;
+        damage *= 1.5;
+      }
+
+      if (i === 0) {
+        attacker = 'player';
+        hitZoneId = this.player.attackZoneId;
+
+        if (Math.random() < 0.2 && !isCrit) {
+          isSuccessful = false;
+        } else {
+          this.enemy.hp -= damage;
+        }
+      } else {
+        attacker = 'enemy';
+
+        hitZoneId = Math.floor(Math.random() * Battle.hitZones.length);
+        if (this.player.defenseZonesIds.includes(hitZoneId) && !isCrit) {
+          isSuccessful = false;
+        } else {
+          this.player.hp -= damage;
+        }
+      }
+
+      const logEntry = {
+        attacker,
+        isSuccessful,
+        isCrit,
+        hitZoneId,
+        damage,
+        toString() {
+          const shootersNames = [player.name, Battle.enemies[battle.enemy.id].name];
+          const msg = {
+            attacker: this.attacker === 'player' ? shootersNames[0] : shootersNames[1],
+            defender: this.attacker === 'player' ? shootersNames[1] : shootersNames[0],
+            crit: this.isCrit ? 'КРИТИЧЕСКИ' : '',
+          };
+
+          if (this.isSuccessful) {
+            return `${msg.attacker} ${msg.crit} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]} и наносит ${this.damage} ед. урона`;
+          } else {
+            return `${msg.attacker} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]}, но не наносит урон`;
+          }
+        }
+      };
+
+      this.log.push(logEntry);
+    }
+
+    if (this.player.hp <= 0 || this.enemy.hp <= 0) {
+      if (this.player.hp > this.enemy.hp) {
+        player.stats.wins++;
+        this.winner = 'player';
+      } else {
+        player.stats.loses++;
+        this.winner = 'enemy';
+      }
+      storage.save(player);
+      router.setView('results');
+    } else {
+      router.setView('battle');
+    }
+
+    storage.save(this);
   }
 }
 

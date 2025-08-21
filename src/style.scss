@@ -18,12 +18,12 @@ $font-stack: 'Trebuchet MS', sans-serif;
 body {
   height: 100%;
   display: grid;
+  place-items: center;
   font: 100% $font-stack;
   background: $background-color;
 }
 
 #app {
-  margin: auto;
   padding: $app-padding;
   width: $app-width;
   background: $primary-color;
