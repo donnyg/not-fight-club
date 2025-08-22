@@ -2,9 +2,10 @@ import styles from './BattleView.module.scss';
 import { player } from "../../player";
 import { Battle, battle } from "../../battle";
 import SelectHitZones from '../../components/SelectHitZones';
+import BattleLog from '../../components/BattleLog';
 
 export default () => `
-  <div class="${styles.container}">
+  <div class="container">
     <div class="${styles.battlefield}">
       <div class="${styles.shooter}">
         <p class="${styles.name}">${Battle.characters[player.characterId].name}</p>
@@ -40,8 +41,6 @@ export default () => `
     </div>
     ${SelectHitZones()}
     <button type="submit" form="form" id="shoot">УДАР!</button>
-    <div class="${styles.log}" id="log">
-      ${battle.log.join('<br>')}
-    </div>
+    ${BattleLog()}
   </div>
 `;

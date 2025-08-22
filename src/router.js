@@ -18,6 +18,13 @@ export class Router {
     settings: { title: 'Настройки', render: SettingsView },
   };
 
+  static scrollToEnd(elem, smooth = false) {
+    return elem.scrollBy({
+      top: elem.scrollHeight,
+      behavior: smooth ? 'smooth' : 'auto'
+    });
+  }
+
   setView(name) {
     this.#currentView = name;
     document.getElementById('app').innerHTML = `
@@ -79,9 +86,13 @@ export class Router {
 
           battle.handleTurn();
         };
+
+        Router.scrollToEnd(document.getElementById('log'), true);
         break;
       }
       case 'results': {
+        Router.scrollToEnd(document.getElementById('log'));
+
         const btn = document.getElementById('main');
         btn.onclick = () => this.setView('home');
         break;

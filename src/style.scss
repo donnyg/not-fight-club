@@ -1,10 +1,4 @@
-$app-width: clamp(300px, 90dvw, 640px);
-$app-padding: clamp(0.25rem, 5dvw, 1.25rem);
-$app-border-radius: 1rem;
-$app-shadow: 0 0 20px 5px rgb(230, 230, 230);
-$primary-color: white;
-$background-color: whitesmoke;
-$font-stack: 'Trebuchet MS', sans-serif;
+@use 'variables' as *;
 
 *,
 *::before,
@@ -29,6 +23,12 @@ body {
   background: $primary-color;
   border-radius: $app-border-radius;
   box-shadow: $app-shadow;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .title {

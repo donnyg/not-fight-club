@@ -1,8 +1,10 @@
 import { battle } from "../../battle";
+import BattleLog from "../../components/BattleLog";
 
 export default () => `
-  <h3 class="title">${battle.winner === 'player' ? 'Вы победили' : 'Вы проиграли'}</h3>
-  ${battle.log.join('<br>')}
-  <br>
-  <button type="button" id="main">На главную</button>
+  <div class="container">
+    <p>${battle.winner === 'player' ? 'Вы победили!' : 'Вы проиграли!'}</p>
+    ${BattleLog()}
+    <button type="button" id="main">На главную</button>
+  </div>
 `;
