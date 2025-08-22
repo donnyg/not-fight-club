@@ -12,7 +12,7 @@ export class Router {
 
   static #views = {
     login: { title: 'Создание персонажа', render: LoginView },
-    home: { title: 'Home', render: HomeView },
+    home: { title: 'Not Fight Game', render: HomeView },
     battle: { title: 'Бой', render: BattleView },
     results: { title: 'Результаты боя', render: ResultsView },
     settings: { title: 'Настройки', render: SettingsView },
@@ -45,7 +45,12 @@ export class Router {
         break;
       }
       case 'home': {
-        document.getElementById('play').onclick = () => {
+        const resume = document.getElementById('resume');
+        if (resume) {
+          resume.onclick = () => this.setView('battle');
+        }
+
+        document.getElementById('start').onclick = () => {
           battle.start();
           this.setView('battle');
         };

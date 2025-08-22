@@ -1,3 +1,4 @@
+import LogEntry from "./LogEntry";
 import { player } from "./player";
 import { router } from "./router";
 import { storage } from "./storage";
@@ -18,10 +19,6 @@ export class Battle {
   ];
 
   static hitZones = ['Голова', 'Шея', 'Грудь', 'Живот', 'Ноги'];
-
-  constructor() {
-    this.log = [];
-  }
 
   setRandomEnemy() {
     const index = Math.floor(Math.random() * Battle.enemies.length);
@@ -75,29 +72,7 @@ export class Battle {
         }
       }
 
-      const logEntry = {
-        attacker,
-        isSuccessful,
-        isCrit,
-        hitZoneId,
-        damage,
-        toString() {
-          const shootersNames = [player.name, Battle.enemies[battle.enemy.id].name];
-          const msg = {
-            attacker: this.attacker === 'player' ? shootersNames[0] : shootersNames[1],
-            defender: this.attacker === 'player' ? shootersNames[1] : shootersNames[0],
-            crit: this.isCrit ? 'КРИТИЧЕСКИ' : '',
-          };
-
-          if (this.isSuccessful) {
-            return `${msg.attacker} ${msg.crit} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]} и наносит ${this.damage} ед. урона`;
-          } else {
-            return `${msg.attacker} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]}, но не наносит урон`;
-          }
-        }
-      };
-
-      this.log.push(logEntry);
+      this.log.push(new LogEntry({ attacker, isSuccessful, isCrit, hitZoneId, damage }));
     }
 
     if (this.player.hp <= 0 || this.enemy.hp <= 0) {

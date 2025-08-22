@@ -1,3 +1,6 @@
+import { battle } from "../../battle";
+
 export default () => `
-  <button type="button" id="play">Начать бой</button>
+  ${battle.enemy && !battle.winner ? '<button type="button" id="resume">Продолжить бой</button>' : ''}
+  <button type="button" id="start">Начать бой</button>
 `;

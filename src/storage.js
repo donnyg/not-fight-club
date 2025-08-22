@@ -1,6 +1,6 @@
 class Storage {
-  getPlayer() {
-    return JSON.parse(window.localStorage.getItem('player'));
+  get(key) {
+    return JSON.parse(window.localStorage.getItem(key));
   }
 
   save(value) {
