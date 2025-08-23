@@ -8,11 +8,12 @@
   box-sizing: border-box;
 }
 
-:root,
 body {
-  height: 100%;
-  display: grid;
-  place-items: center;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font: 100% $font-stack;
   background: $background-color;
 }
@@ -23,6 +24,12 @@ body {
   background: $primary-color;
   border-radius: $app-border-radius;
   box-shadow: $app-shadow;
+}
+
+#header {
+  padding: $app-padding;
+  padding-block: 0.5rem;
+  width: $app-width;
 }
 
 .container {

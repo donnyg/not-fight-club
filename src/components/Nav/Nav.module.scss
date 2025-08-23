@@ -1,0 +1,15 @@
+.list {
+  display: flex;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.button {
+  display: block;
+  padding: 0;
+  background: none;
+
+  img {
+    display: block;
+  }
+}

@@ -6,15 +6,24 @@ import HomeView from "./views/HomeView";
 import BattleView from "./views/BattleView";
 import SettingsView from './views/SettingsView';
 import ResultsView from "./views/ResultsView";
+import PlayerView from "./views/PlayerView";
+import Nav from "./components/Nav";
 
 export class Router {
   #currentView;
+
+  static navItems = [
+    { path: 'home', iconName: 'home' },
+    { path: 'player', iconName: 'person' },
+    { path: 'settings', iconName: 'settings' },
+  ];
 
   static #views = {
     login: { title: 'Создание персонажа', render: LoginView },
     home: { title: 'Not Fight Game', render: HomeView },
     battle: { title: 'Бой', render: BattleView },
     results: { title: 'Результаты боя', render: ResultsView },
+    player: { title: 'Игрок', render: PlayerView },
     settings: { title: 'Настройки', render: SettingsView },
   };
 
@@ -31,6 +40,16 @@ export class Router {
       <h2 class="title">${Router.#views[name].title}</h2>
       ${Router.#views[name].render()}
     `;
+
+    if (this.#currentView !== 'login') {
+      const header = document.getElementById('header');
+      header.innerHTML = Nav();
+
+      const buttons = document.querySelectorAll('.nav button');
+      buttons.forEach((elem, index) => {
+        elem.onclick = () => this.setView(Router.navItems[index].path);
+      });
+    }
 
     switch (this.#currentView) {
       case 'login': {
@@ -51,6 +70,7 @@ export class Router {
         }
         break;
       }
+
       case 'home': {
         const resume = document.getElementById('resume');
         if (resume) {
@@ -63,6 +83,7 @@ export class Router {
         };
         break;
       }
+
       case 'battle': {
         const form = document.getElementById('form');
         const btn = document.getElementById('shoot');
@@ -90,12 +111,17 @@ export class Router {
         Router.scrollToEnd(document.getElementById('log'), true);
         break;
       }
+
       case 'results': {
         Router.scrollToEnd(document.getElementById('log'));
 
         const btn = document.getElementById('main');
         btn.onclick = () => this.setView('home');
         break;
+      }
+
+      case 'default': {
+        throw new Error('Unknown view');
       }
     }
 
