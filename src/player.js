@@ -1,10 +1,17 @@
+import { battle } from "./battle";
+import { storage } from "./storage";
+
 class Player {
   constructor() {
     this.stats = { wins: 0, loses: 0 };
   }
 
-  loadFromStorage(obj) {
-    return Object.assign(this, obj);
+  setCharacter(id) {
+    player.characterId = id;
+    storage.save(player);
+
+    Object.keys(battle).forEach((key) => delete battle[key]);
+    storage.save(battle);
   }
 }
 

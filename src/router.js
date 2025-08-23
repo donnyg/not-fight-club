@@ -64,8 +64,7 @@ export class Router {
         form.onsubmit = (event) => {
           event.preventDefault();
           player.name = form.elements.name.value;
-          player.characterId = form.elements.character.value;
-          storage.save(player);
+          player.setCharacter(+form.elements.character.value);
           this.setView('home');
         }
         break;
@@ -120,12 +119,26 @@ export class Router {
         break;
       }
 
+      case 'player': {
+        const form = document.getElementById('form');
+        form.onsubmit = (event) => {
+          event.preventDefault();
+          player.setCharacter(+form.elements.character.value);
+          this.reloadView();
+        }
+        break;
+      }
+
       case 'default': {
         throw new Error('Unknown view');
       }
     }
 
     console.debug('setView to', name);
+  }
+
+  reloadView() {
+    return this.setView(this.#currentView);
   }
 
   get currentView() {

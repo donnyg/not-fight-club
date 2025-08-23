@@ -20,7 +20,7 @@ export default () => `
           </meter>
           <span class="${styles.maxHp}">${Battle.characters[player.characterId].hp}</span>
         </div>
-        <img class="${styles.skin}" src="./assets/skins/${Battle.characters[player.characterId].skinId}.webp" alt="${Battle.characters[player.characterId].name}">
+        <img src="./assets/skins/${Battle.characters[player.characterId].skinId}.webp" alt="${Battle.characters[player.characterId].name}">
       </div>
       <span class="${styles.versus}">vs.</span>
       <div class="${styles.shooter}">
@@ -36,7 +36,7 @@ export default () => `
           </meter>
           <span class="${styles.maxHp}">${Battle.enemies[battle.enemy.id].hp}</span>
         </div>
-        <img class="${styles.skin}" src="./assets/skins/${Battle.enemies[battle.enemy.id].skinId}.webp" alt="${Battle.enemies[battle.enemy.id].name}">
+        <img src="./assets/skins/${Battle.enemies[battle.enemy.id].skinId}.webp" alt="${Battle.enemies[battle.enemy.id].name}">
       </div>
     </div>
     ${SelectHitZones()}

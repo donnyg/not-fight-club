@@ -19,7 +19,7 @@ if (storageBattle) {
 }
 
 if (storagePlayer) {
-  player.loadFromStorage(storagePlayer);
+  Object.assign(player, storagePlayer);
   router.setView('home');
 } else {
   router.setView('login');

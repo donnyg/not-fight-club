@@ -18,6 +18,10 @@ body {
   background: $background-color;
 }
 
+img {
+  width: 100%;
+}
+
 #app {
   padding: $app-padding;
   width: $app-width;

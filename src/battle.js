@@ -86,7 +86,7 @@ export class Battle {
       storage.save(player);
       router.setView('results');
     } else {
-      router.setView('battle');
+      router.reloadView();
     }
 
     storage.save(this);

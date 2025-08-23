@@ -7,7 +7,7 @@ export default () => {
     return `
       <li>
         <button type="button" class="${styles.button}">
-          <img src="./assets/icons/${item.iconName}${item.path === router.currentView ? '-filled' : ''}.svg" width="32" alt="${item.path}">
+          <img src="./assets/icons/${item.iconName}${item.path === router.currentView ? '-filled' : ''}.svg" alt="${item.path}">
         </button>
       </li>
     `;
