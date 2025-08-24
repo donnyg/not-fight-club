@@ -5,17 +5,17 @@ import { storage } from "./storage";
 
 export class Battle {
   static characters = [
-    { name: 'CJ', hp: 100, skinId: 0 },
-    { name: 'Sweet', hp: 200, skinId: 270 },
-    { name: 'Cesar Vialpando', hp: 150, skinId: 292 },
+    { name: 'CJ', hp: 100, critChance: 0.1, skinId: 0 },
+    { name: 'Sweet', hp: 200, critChance: 0.3, skinId: 270 },
+    { name: 'Cesar Vialpando', hp: 150, critChance: 0.2, skinId: 292 },
   ];
 
   static enemies = [
-    { name: 'Ballas Gang Member', hp: 100, skinId: 103 },
-    { name: 'Ryder', hp: 150, skinId: 271 },
-    { name: 'Officer Tenpenny', hp: 150, skinId: 265 },
-    { name: 'Big Smoke', hp: 100, skinId: 269 },
-    { name: 'Big Smoke Armored', hp: 200, skinId: 149 },
+    { name: 'Ballas Gang Member', hp: 100, critChance: 0.1, skinId: 103 },
+    { name: 'Ryder', hp: 150, critChance: 0.2, skinId: 271 },
+    { name: 'Officer Tenpenny', hp: 150, critChance: 0.35, skinId: 265 },
+    { name: 'Big Smoke', hp: 100, critChance: 0.15, skinId: 269 },
+    { name: 'Big Smoke Armored', hp: 200, critChance: 0.35, skinId: 149 },
   ];
 
   static hitZones = ['Голова', 'Шея', 'Грудь', 'Живот', 'Ноги'];
@@ -38,18 +38,21 @@ export class Battle {
   }
 
   handleTurn() {
-    // TODO: throw error if zones not selected
-
     for (let i = 0; i < 2; i++) {
       if (this.player.hp <= 0 || this.enemy.hp <= 0) {
         break;
       }
+
+      const PLAYER_MISS_CHANCE = 0.2;
+
+      let attacker;
+      let isSuccessful = true;
+      let isCrit = false;
       let damage = 30;
       let hitZoneId;
-      let isCrit = false;
 
-      const critChance = Math.random();
-      if (critChance < 0.2) {
+      const critChance = i === 0 ? Battle.characters[player.characterId].critChance : Battle.enemies[battle.enemy.id].critChance;
+      if (Math.random() < critChance) {
         isCrit = true;
         damage *= 1.5;
       }
@@ -58,7 +61,7 @@ export class Battle {
         attacker = 'player';
         hitZoneId = this.player.attackZoneId;
 
-        if (Math.random() < 0.2 && !isCrit) {
+        if (Math.random() < PLAYER_MISS_CHANCE && !isCrit) {
           isSuccessful = false;
         } else {
           this.enemy.hp -= damage;
