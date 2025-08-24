@@ -2,7 +2,16 @@
 
 .battlefield {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1rem;
+
+  @media (max-width: 425px) {
+    grid-template-columns: 1fr;
+
+    img {
+      width: 50%;
+    }
+  }
 }
 
 .versus {

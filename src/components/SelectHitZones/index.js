@@ -3,7 +3,7 @@ import { Battle, battle } from '../../battle';
 
 export default () => `
   <form id="form">
-    <fieldset>
+    <fieldset class="${styles.fieldset}">
       <legend>Выберите 2 зоны защиты</legend>
       ${Battle.hitZones.map((hitZone, index) => `
         <label>
@@ -12,7 +12,7 @@ export default () => `
         </label>
       `).join('')}
     </fieldset>
-    <fieldset>
+    <fieldset class="${styles.fieldset}">
       <legend>Выберите зону атаки</legend>
       ${Battle.hitZones.map((hitZone, index) => `
         <label>
