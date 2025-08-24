@@ -3,8 +3,8 @@ class Storage {
     return JSON.parse(window.localStorage.getItem(key));
   }
 
-  save(value) {
-    return window.localStorage.setItem(value.constructor.name.toLowerCase(), JSON.stringify(value));
+  save(key, value) {
+    return window.localStorage.setItem(key, JSON.stringify(value));
   }
 }
 
