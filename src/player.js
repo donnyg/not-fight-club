@@ -8,10 +8,10 @@ export class Player {
 
   setCharacter(id) {
     player.characterId = id;
-    storage.save(player);
+    storage.save('player', player);
 
     Object.keys(battle).forEach((key) => delete battle[key]);
-    storage.save(battle);
+    storage.save('battle', battle);
   }
 }
 

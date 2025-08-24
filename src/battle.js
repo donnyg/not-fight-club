@@ -88,13 +88,13 @@ export class Battle {
         player.stats.loses++;
         this.winner = 'enemy';
       }
-      storage.save(player);
+      storage.save('player', player);
       router.setView('results');
     } else {
       router.reloadView();
     }
 
-    storage.save(this);
+    storage.save('battle', this);
   }
 }
 

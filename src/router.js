@@ -142,7 +142,7 @@ export class Router {
         form.onsubmit = (event) => {
           event.preventDefault();
           player.name = form.elements.name.value;
-          storage.save(player);
+          storage.save('player', player);
           this.reloadView();
         }
         break;
