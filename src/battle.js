@@ -41,7 +41,9 @@ export class Battle {
     // TODO: throw error if zones not selected
 
     for (let i = 0; i < 2; i++) {
-      let attacker, isSuccessful = true;
+      if (this.player.hp <= 0 || this.enemy.hp <= 0) {
+        break;
+      }
       let damage = 30;
       let hitZoneId;
       let isCrit = false;
