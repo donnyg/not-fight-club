@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light dark;
+}
+
 body {
   height: 100dvh;
   display: flex;

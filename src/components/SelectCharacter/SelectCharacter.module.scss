@@ -13,7 +13,7 @@
   cursor: pointer;
 
   &:has(.input:checked) {
-    background: whitesmoke;
+    background: light-dark(whitesmoke, #6b6b6b);
   }
 }
 
