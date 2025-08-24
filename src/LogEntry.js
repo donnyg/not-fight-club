@@ -15,13 +15,16 @@ export default class LogEntry {
     const msg = {
       attacker: this.attacker === 'player' ? shootersNames[0] : shootersNames[1],
       defender: this.attacker === 'player' ? shootersNames[1] : shootersNames[0],
-      crit: this.isCrit ? 'КРИТИЧЕСКИ' : '',
+      crit: this.isCrit ? '<span class="log--crit">КРИТИЧЕСКИ</span>' : '',
+
+      attackerStyle: this.attacker === 'player' ? 'log--player' : 'log--enemy',
+      defenderStyle: this.attacker === 'player' ? 'log--enemy' : 'log--player',
     };
 
     if (this.isSuccessful) {
-      return `${msg.attacker} ${msg.crit} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]} и наносит ${this.damage} ед. урона`;
+      return `<span class="${msg.attackerStyle}">${msg.attacker}</span> ${msg.crit} атакует <span class="${msg.defenderStyle}">${msg.defender}</span> в <span class="log">${Battle.hitZones[this.hitZoneId]}</span> и наносит <span class="log">${this.damage} ед. урона</span>`;
     } else {
-      return `${msg.attacker} атакует ${msg.defender} в ${Battle.hitZones[this.hitZoneId]}, но не наносит урон`;
+      return `<span class="${msg.attackerStyle}">${msg.attacker}</span> атакует <span class="${msg.defenderStyle}">${msg.defender}</span> в <span class="log">${Battle.hitZones[this.hitZoneId]}</span>, но не наносит урона`;
     }
   }
 }

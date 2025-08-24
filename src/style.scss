@@ -22,6 +22,26 @@ img {
   width: 100%;
 }
 
+input[type="text"] {
+  padding: 0.5rem;
+  max-width: 300px;
+  border-radius: 0.5rem;
+  border: 1px solid;
+}
+
+button {
+  padding: 1rem;
+  width: fit-content;
+  font: inherit;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
 #app {
   padding: $app-padding;
   width: $app-width;
@@ -47,22 +67,21 @@ img {
   font-weight: normal;
 }
 
-input[type="text"] {
-  padding: 0.5rem;
-  max-width: 300px;
-  border-radius: 0.5rem;
-  border: 1px solid;
-}
+.log {
+  font-style: italic;
 
-button {
-  padding: 1rem;
-  width: fit-content;
-  font: inherit;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
+  &--player {
+    @extend .log;
+    color: green;
+  }
 
-  &:disabled {
-    cursor: not-allowed;
+  &--enemy {
+    @extend .log;
+    color: purple;
+  }
+
+  &--crit {
+    font-weight: bold;
+    color: red;
   }
 }
