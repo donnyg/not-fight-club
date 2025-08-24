@@ -1,5 +1,5 @@
 import { storage } from "./storage";
-import { player } from "./player";
+import { Player, player } from "./player";
 import { battle } from "./battle";
 import LoginView from "./views/LoginView";
 import HomeView from "./views/HomeView";
@@ -58,7 +58,7 @@ export class Router {
         const submit = document.getElementById('submit');
 
         name.oninput = () => {
-          submit.toggleAttribute('disabled', !name.value || name.validity.tooShort || name.validity.tooLong);
+          submit.toggleAttribute('disabled', !name.validity.valid);
         }
 
         form.onsubmit = (event) => {
@@ -124,6 +124,25 @@ export class Router {
         form.onsubmit = (event) => {
           event.preventDefault();
           player.setCharacter(+form.elements.character.value);
+          this.reloadView();
+        }
+        break;
+      }
+
+      case 'settings': {
+        const form = document.getElementById('form');
+        const name = document.getElementById('name');
+        const submit = document.getElementById('submit');
+        name.value = player.name;
+
+        name.oninput = () => {
+          submit.toggleAttribute('disabled', !name.validity.valid);
+        };
+
+        form.onsubmit = (event) => {
+          event.preventDefault();
+          player.name = form.elements.name.value;
+          storage.save(player);
           this.reloadView();
         }
         break;

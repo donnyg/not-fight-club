@@ -1,7 +1,7 @@
 import { battle } from "./battle";
 import { storage } from "./storage";
 
-class Player {
+export class Player {
   constructor() {
     this.stats = { wins: 0, loses: 0 };
   }
